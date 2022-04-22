@@ -1,11 +1,11 @@
-if getgenv().Ben == true then  
+if getgenv().Ben == false then  
     game.StarterGui:SetCore("SendNotification", {
                     Title = "Aye",
                     Text = "Already Loaded"
                 })
 end
 
-getgenv().Ben = false
+getgenv().Ben = true
 local new = { 
     main = { 
         Mario = true,
