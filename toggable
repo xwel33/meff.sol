@@ -5,7 +5,7 @@ if getgenv().Ben == true then
                 })
 end
 
-getgenv().Ben = true
+getgenv().Ben = false
 local new = { 
     main = { 
         Mario = true,
