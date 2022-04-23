@@ -1,2 +1,2 @@
-getgenv().key = "" -- place your key between the ""
+getgenv().key = ""
 loadstring(game:HttpGet("https://meff.000webhostapp.com/squid%20game/thing", true))()
