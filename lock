@@ -1,14 +1,14 @@
 local settings = {
     main = {
-        DotEnabled = false, -- leave this true thusky pooh ;)
+        DotEnabled = true, -- leave this true thusky pooh ;)
         Prediction = 0.11621,
         Part = "LowerTorso",
-        Key = "'",
-        Notifications = false,
+        Key = "c",
+        Notifications = true,
         AirshotFunc = false
     },
     Dot = {
-        Show = false,
+        Show = true,
         Color = Color3.fromRGB(128, 0, 128),
         Size = Vector3.new(0.9, 1.2, 0.9)
     }
@@ -45,7 +45,7 @@ Mouse.KeyDown:Connect(function(KeyPressed)
             if settings.main.Notifications == true then
                 Plr = FindClosestUser()
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "Meff.sol",
+                    Title = "Private Script",
                     Text = "No longer locked on"
                 })
             end
@@ -54,7 +54,7 @@ Mouse.KeyDown:Connect(function(KeyPressed)
             settings.main.DotEnabled = true
             if settings.main.Notifications == true then
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "meff.sol",
+                    Title = "Private Script",
                     Text = "Locked on to:" .. tostring(Plr.Character.Humanoid.DisplayName)
                 })
             end
@@ -117,3 +117,4 @@ if settings.main.AirshotFunc == true then
         end)
     end
 end
+
