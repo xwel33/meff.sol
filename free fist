@@ -1,0 +1,70 @@
+-- Free Fists
+do
+	local rDown = false
+
+	local RightWrist = nil
+	local LeftWrist = nil
+
+	local db = false
+
+	local key = "R"
+
+	local input = UIS.InputBegan:Connect(function(input,gpe)
+		if not gpe and input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode[key] and FreeFistsEnabled then
+			rDown = not rDown
+		end
+	end)
+
+	player.CharacterRemoving:Connect(function()
+		pcall(function()
+			RightWrist:Destroy()
+		end)
+		pcall(function()
+			LeftWrist:Destroy()
+		end)
+		RightWrist,LeftWrist = nil,nil
+	end)
+
+	local updateEvent = HB:Connect(function()
+
+		if not db then
+			db = true
+
+			pcall(function()
+				local char = mobileCharacter()
+				local goal = mouse.Hit
+
+				if char and goal then
+					local RH = char:FindFirstChild("RightHand")
+					local LH = char:FindFirstChild("LeftHand")
+
+					RightWrist = RightWrist or RH:FindFirstChild("RightWrist")
+					LeftWrist = LeftWrist or LH:FindFirstChild("LeftWrist")
+
+					if not (RightWrist and LeftWrist and RH and LH)  then
+						resetCharacter()
+						db = false
+						return
+					else
+						if FreeFistsEnabled and rDown then
+							LeftWrist.Parent = nil
+							RightWrist.Parent = nil
+
+							RH.CFrame = goal
+							LH.CFrame = goal
+						else
+							LeftWrist.Parent = LH
+							RightWrist.Parent = RH
+						end
+
+						if not FreeFistsEnabled then
+							rDown = false
+						end
+					end
+				end
+			end)
+
+			db = false
+		end
+	end)
+end
