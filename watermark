@@ -1,8 +1,10 @@
 --made by https://v3rmillion.net/member.php?action=profile&uid=237565
 
 local UserInputService = game:GetService("UserInputService")
+getgenv().squidgame = {
+    local enabled223 = false 
+}
 
-local enabled223 = false 
 if enabled then
 
 --\\credits to DreiK and credits to warrior for fixing garbage code \\--
