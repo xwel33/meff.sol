@@ -3,7 +3,7 @@ local settings44 = {
         DotEnabled = true,
         Prediction442 = 0.121192,
         Part = "LowerTorso",
-        Key = "c",
+        key442 = "c",
         Notifications442 = true,
         AirshotFunc = true
     },
@@ -38,8 +38,8 @@ else
     Part.Transparency = 1
 end
 
-Mouse.KeyDown:Connect(function(KeyPressed)
-    if KeyPressed == (settings44.main33.Key) then
+Mouse.key442Down:Connect(function(key442Pressed)
+    if key442Pressed == (settings44.main33.key442) then
         if settings44.main33.DotEnabled == true then
             settings44.main33.DotEnabled = false
             if settings44.main33.Notifications442 == true then
