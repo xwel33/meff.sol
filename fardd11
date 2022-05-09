@@ -1,10 +1,10 @@
 local settings = {
     main = {
-        DotEnabled = false,
-        Prediction = 0,
+        DotEnabled = true,
+        Prediction = 0.11621,
         Part = "LowerTorso",
-        Key = "",
-        Notifications = false,
+        Key = "c",
+        Notifications = true,
         AirshotFunc = false
     },
     Dot = {
