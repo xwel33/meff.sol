@@ -1,10 +1,10 @@
 local settings44 = {
     main33 = {
-        DotEnabled = true, -- leave this true thusky pooh ;)
-        Prediction = 0.11621,
-        Part = "LowerTorso",
-        Key = "c",
-        Notifications = true,
+        DotEnabled = false,
+        Prediction = 0,
+        Part = "",
+        Key = "",
+        Notifications = false,
         AirshotFunc = false
     },
     Dot = {
