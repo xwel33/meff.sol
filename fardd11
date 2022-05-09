@@ -1,7 +1,7 @@
 local settings44 = {
     main33 = {
         DotEnabled = true,
-        Prediction = 0.121192,
+        Prediction442 = 0.121192,
         Part = "LowerTorso",
         Key = "c",
         Notifications442 = true,
@@ -83,7 +83,7 @@ end
 RunService.Stepped:connect(function()
     if settings44.main33.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
         Part.CFrame = CFrame.new(Plr.Character[settings44.main33.Part].Position +
-                                     (Plr.Character.LowerTorso.Velocity * settings44.main33.Prediction))
+                                     (Plr.Character.LowerTorso.Velocity * settings44.main33.Prediction442))
     else
         Part.CFrame = CFrame.new(0, 9999, 0)
 
@@ -97,7 +97,7 @@ mt.__namecall = newcclosure(function(...)
     local args = {...}
     if settings44.main33.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
         args[3] = Plr.Character[settings44.main33.Part].Position +
-                      (Plr.Character[settings44.main33.Part].Velocity * settings44.main33.Prediction)
+                      (Plr.Character[settings44.main33.Part].Velocity * settings44.main33.Prediction442)
         return old(unpack(args))
     end
     return old(...)
