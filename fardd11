@@ -1,5 +1,5 @@
-getgenv().settings = {
-getgenv().main = {
+local settings = {
+    main = {
         DotEnabled = true, -- leave this true thusky pooh ;)
         Prediction = 0.11621,
         Part = "LowerTorso",
