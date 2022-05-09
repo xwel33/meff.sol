@@ -1,11 +1,11 @@
-local settings44 = {
-    main33 = {
-        DotEnabled = true,
-        Prediction442 = 0.121192,
-        part442 = "LowerTorso",
-        key442 = "c",
-        Notifications442 = true,
-        AirshotFunc = true
+local settings = {
+    main = {
+        DotEnabled = true, -- leave this true thusky pooh ;)
+        Prediction442 = 0.138,
+        Part = "LowerTorso",
+        Key442 = "c",
+        Notifications = true,
+        AirshotFunc = false
     },
     Dot = {
         Show = true,
@@ -24,25 +24,25 @@ local Mouse = game.Players.LocalPlayer:GetMouse()
 local RunService = game:GetService("RunService")
 local Plr = game.Players.LocalPlayer
 
-local part442 = Instance.new("part442", game.Workspace)
-part442.Anchored = true
-part442.CanCollide = false
-part442.Parent = game.Workspace
-part442.Shape = Enum.part442Type.Block
-part442.Size = settings44.Dot.Size
-part442.Color = settings44.Dot.Color
+local Part = Instance.new("Part", game.Workspace)
+Part.Anchored = true
+Part.CanCollide = false
+Part.Parent = game.Workspace
+Part.Shape = Enum.PartType.Block
+Part.Size = settings.Dot.Size
+Part.Color = settings.Dot.Color
 
-if settings44.Dot.Show == true then
-    part442.Transparency = 0
+if settings.Dot.Show == true then
+    Part.Transparency = 0
 else
-    part442.Transparency = 1
+    Part.Transparency = 1
 end
 
-Mouse.key442Down:Connect(function(key442Pressed)
-    if key442Pressed == (settings44.main33.key442) then
-        if settings44.main33.DotEnabled == true then
-            settings44.main33.DotEnabled = false
-            if settings44.main33.Notifications442 == true then
+Mouse.KeyDown:Connect(function(KeyPressed)
+    if KeyPressed == (settings.main.Key442) then
+        if settings.main.DotEnabled == true then
+            settings.main.DotEnabled = false
+            if settings.main.Notifications == true then
                 Plr = FindClosestUser()
                 game.StarterGui:SetCore("SendNotification", {
                     Title = "Meff.sol HVH",
@@ -51,8 +51,8 @@ Mouse.key442Down:Connect(function(key442Pressed)
             end
         else
             Plr = FindClosestUser()
-            settings44.main33.DotEnabled = true
-            if settings44.main33.Notifications442 == true then
+            settings.main.DotEnabled = true
+            if settings.main.Notifications == true then
                 game.StarterGui:SetCore("SendNotification", {
                     Title = "Meff.sol HVH",
                     Text = "Locked on to:" .. tostring(Plr.Character.Humanoid.DisplayName)
@@ -68,8 +68,8 @@ function FindClosestUser()
 
     for i, v in pairs(game.Players:GetPlayers()) do
         if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and
-            v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootpart442") then
-            local pos = CurrentCamera:WorldToViewportPoint(v.Character.Primarypart442.Position)
+            v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
+            local pos = CurrentCamera:WorldToViewportPoint(v.Character.PrimaryPart.Position)
             local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(Mouse.X, Mouse.Y)).magnitude
             if magnitude < shortestDistance then
                 closestPlayer = v
@@ -81,11 +81,11 @@ function FindClosestUser()
 end
 
 RunService.Stepped:connect(function()
-    if settings44.main33.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
-        part442.CFrame = CFrame.new(Plr.Character[settings44.main33.part442].Position +
-                                     (Plr.Character.LowerTorso.Velocity * settings44.main33.Prediction442))
+    if settings.main.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
+        Part.CFrame = CFrame.new(Plr.Character[settings.main.Part].Position +
+                                     (Plr.Character.LowerTorso.Velocity * settings.main.Prediction442))
     else
-        part442.CFrame = CFrame.new(0, 9999, 0)
+        Part.CFrame = CFrame.new(0, 9999, 0)
 
     end
 end)
@@ -95,24 +95,24 @@ local old = mt.__namecall
 setreadonly(mt, false)
 mt.__namecall = newcclosure(function(...)
     local args = {...}
-    if settings44.main33.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
-        args[3] = Plr.Character[settings44.main33.part442].Position +
-                      (Plr.Character[settings44.main33.part442].Velocity * settings44.main33.Prediction442)
+    if settings.main.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+        args[3] = Plr.Character[settings.main.Part].Position +
+                      (Plr.Character[settings.main.Part].Velocity * settings.main.Prediction442)
         return old(unpack(args))
     end
     return old(...)
 end)
 
 
-if settings44.main33.AirshotFunc == true then
+if settings.main.AirshotFunc == true then
     if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
-        settings44.main33.part442 = "RightFoot"
+        settings.main.Part = "RightFoot"
     else
         Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
             if new == Enum.HumanoidStateType.Freefall then
-                settings44.main33.part442 = "RightFoot"
+                settings.main.Part = "RightFoot"
             else
-                settings44.main33.part442 = "LowerTorso"
+                settings.main.Part = "LowerTorso"
             end
         end)
     end
