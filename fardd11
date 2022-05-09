@@ -2,7 +2,7 @@ local settings44 = {
     main33 = {
         DotEnabled = true,
         Prediction442 = 0.121192,
-        Part = "LowerTorso",
+        part442 = "LowerTorso",
         key442 = "c",
         Notifications442 = true,
         AirshotFunc = true
@@ -24,18 +24,18 @@ local Mouse = game.Players.LocalPlayer:GetMouse()
 local RunService = game:GetService("RunService")
 local Plr = game.Players.LocalPlayer
 
-local Part = Instance.new("Part", game.Workspace)
-Part.Anchored = true
-Part.CanCollide = false
-Part.Parent = game.Workspace
-Part.Shape = Enum.PartType.Block
-Part.Size = settings44.Dot.Size
-Part.Color = settings44.Dot.Color
+local part442 = Instance.new("part442", game.Workspace)
+part442.Anchored = true
+part442.CanCollide = false
+part442.Parent = game.Workspace
+part442.Shape = Enum.part442Type.Block
+part442.Size = settings44.Dot.Size
+part442.Color = settings44.Dot.Color
 
 if settings44.Dot.Show == true then
-    Part.Transparency = 0
+    part442.Transparency = 0
 else
-    Part.Transparency = 1
+    part442.Transparency = 1
 end
 
 Mouse.key442Down:Connect(function(key442Pressed)
@@ -68,8 +68,8 @@ function FindClosestUser()
 
     for i, v in pairs(game.Players:GetPlayers()) do
         if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and
-            v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
-            local pos = CurrentCamera:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+            v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootpart442") then
+            local pos = CurrentCamera:WorldToViewportPoint(v.Character.Primarypart442.Position)
             local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(Mouse.X, Mouse.Y)).magnitude
             if magnitude < shortestDistance then
                 closestPlayer = v
@@ -82,10 +82,10 @@ end
 
 RunService.Stepped:connect(function()
     if settings44.main33.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
-        Part.CFrame = CFrame.new(Plr.Character[settings44.main33.Part].Position +
+        part442.CFrame = CFrame.new(Plr.Character[settings44.main33.part442].Position +
                                      (Plr.Character.LowerTorso.Velocity * settings44.main33.Prediction442))
     else
-        Part.CFrame = CFrame.new(0, 9999, 0)
+        part442.CFrame = CFrame.new(0, 9999, 0)
 
     end
 end)
@@ -96,8 +96,8 @@ setreadonly(mt, false)
 mt.__namecall = newcclosure(function(...)
     local args = {...}
     if settings44.main33.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
-        args[3] = Plr.Character[settings44.main33.Part].Position +
-                      (Plr.Character[settings44.main33.Part].Velocity * settings44.main33.Prediction442)
+        args[3] = Plr.Character[settings44.main33.part442].Position +
+                      (Plr.Character[settings44.main33.part442].Velocity * settings44.main33.Prediction442)
         return old(unpack(args))
     end
     return old(...)
@@ -106,13 +106,13 @@ end)
 
 if settings44.main33.AirshotFunc == true then
     if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
-        settings44.main33.Part = "RightFoot"
+        settings44.main33.part442 = "RightFoot"
     else
         Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
             if new == Enum.HumanoidStateType.Freefall then
-                settings44.main33.Part = "RightFoot"
+                settings44.main33.part442 = "RightFoot"
             else
-                settings44.main33.Part = "LowerTorso"
+                settings44.main33.part442 = "LowerTorso"
             end
         end)
     end
