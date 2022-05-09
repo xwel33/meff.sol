@@ -1,9 +1,9 @@
-getgenv().settings442 = {
-    main442 = {
+getgenv().settings = {
+getgenv().main = {
         DotEnabled = true, -- leave this true thusky pooh ;)
-        Prediction442 = 0.138,
+        Prediction = 0.11621,
         Part = "LowerTorso",
-        Key442 = "c",
+        Key = "c",
         Notifications = true,
         AirshotFunc = false
     },
@@ -29,32 +29,32 @@ Part.Anchored = true
 Part.CanCollide = false
 Part.Parent = game.Workspace
 Part.Shape = Enum.PartType.Block
-Part.Size = settings442.Dot.Size
-Part.Color = settings442.Dot.Color
+Part.Size = settings.Dot.Size
+Part.Color = settings.Dot.Color
 
-if settings442.Dot.Show == true then
+if settings.Dot.Show == true then
     Part.Transparency = 0
 else
     Part.Transparency = 1
 end
 
 Mouse.KeyDown:Connect(function(KeyPressed)
-    if KeyPressed == (settings442.main442.Key442) then
-        if settings442.main442.DotEnabled == true then
-            settings442.main442.DotEnabled = false
-            if settings442.main442.Notifications == true then
+    if KeyPressed == (settings.main.Key) then
+        if settings.main.DotEnabled == true then
+            settings.main.DotEnabled = false
+            if settings.main.Notifications == true then
                 Plr = FindClosestUser()
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "Meff.sol HVH",
+                    Title = "Private Script",
                     Text = "No longer locked on"
                 })
             end
         else
             Plr = FindClosestUser()
-            settings442.main442.DotEnabled = true
-            if settings442.main442.Notifications == true then
+            settings.main.DotEnabled = true
+            if settings.main.Notifications == true then
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "Meff.sol HVH",
+                    Title = "Private Script",
                     Text = "Locked on to:" .. tostring(Plr.Character.Humanoid.DisplayName)
                 })
             end
@@ -81,9 +81,9 @@ function FindClosestUser()
 end
 
 RunService.Stepped:connect(function()
-    if settings442.main442.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
-        Part.CFrame = CFrame.new(Plr.Character[settings442.main442.Part].Position +
-                                     (Plr.Character.LowerTorso.Velocity * settings442.main442.Prediction442))
+    if settings.main.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
+        Part.CFrame = CFrame.new(Plr.Character[settings.main.Part].Position +
+                                     (Plr.Character.LowerTorso.Velocity * settings.main.Prediction))
     else
         Part.CFrame = CFrame.new(0, 9999, 0)
 
@@ -95,24 +95,24 @@ local old = mt.__namecall
 setreadonly(mt, false)
 mt.__namecall = newcclosure(function(...)
     local args = {...}
-    if settings442.main442.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
-        args[3] = Plr.Character[settings442.main442.Part].Position +
-                      (Plr.Character[settings442.main442.Part].Velocity * settings442.main442.Prediction442)
+    if settings.main.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+        args[3] = Plr.Character[settings.main.Part].Position +
+                      (Plr.Character[settings.main.Part].Velocity * settings.main.Prediction)
         return old(unpack(args))
     end
     return old(...)
 end)
 
 
-if settings442.main442.AirshotFunc == true then
+if settings.main.AirshotFunc == true then
     if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
-        settings442.main442.Part = "RightFoot"
+        settings.main.Part = "RightFoot"
     else
         Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
             if new == Enum.HumanoidStateType.Freefall then
-                settings442.main442.Part = "RightFoot"
+                settings.main.Part = "RightFoot"
             else
-                settings442.main442.Part = "LowerTorso"
+                settings.main.Part = "LowerTorso"
             end
         end)
     end
