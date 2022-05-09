@@ -1,16 +1,16 @@
 local settings44 = {
     main33 = {
-        DotEnabled = false,
-        Prediction = 0,
-        Part = "",
-        Key = "",
-        Notifications = false,
-        AirshotFunc = false
+        DotEnabled = true,
+        Prediction = 0.121192,
+        Part = "LowerTorso",
+        Key = "c",
+        Notifications442 = true,
+        AirshotFunc = true
     },
     Dot = {
         Show = true,
-        Color = Color3.fromRGB(128, 0, 128),
-        Size = Vector3.new(0.9, 1.2, 0.9)
+        Color = Color3.fromRGB(0, 255, 0),
+        Size = Vector3.new(0.9, 2.2, 0.9)
     }
 }
 
@@ -28,7 +28,7 @@ local Part = Instance.new("Part", game.Workspace)
 Part.Anchored = true
 Part.CanCollide = false
 Part.Parent = game.Workspace
-Part.Shape = Enum.PartType.Ball
+Part.Shape = Enum.PartType.Block
 Part.Size = settings44.Dot.Size
 Part.Color = settings44.Dot.Color
 
@@ -42,19 +42,19 @@ Mouse.KeyDown:Connect(function(KeyPressed)
     if KeyPressed == (settings44.main33.Key) then
         if settings44.main33.DotEnabled == true then
             settings44.main33.DotEnabled = false
-            if settings44.main33.Notifications == true then
+            if settings44.main33.Notifications442 == true then
                 Plr = FindClosestUser()
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "Private Script",
+                    Title = "Meff.sol HVH",
                     Text = "No longer locked on"
                 })
             end
         else
             Plr = FindClosestUser()
             settings44.main33.DotEnabled = true
-            if settings44.main33.Notifications == true then
+            if settings44.main33.Notifications442 == true then
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "Private Script",
+                    Title = "Meff.sol HVH",
                     Text = "Locked on to:" .. tostring(Plr.Character.Humanoid.DisplayName)
                 })
             end
