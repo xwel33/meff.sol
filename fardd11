@@ -1,6 +1,6 @@
-local settings = {
-    main = {
-        DotEnabled = true,
+local settings44 = {
+    main33 = {
+        DotEnabled = true, -- leave this true thusky pooh ;)
         Prediction = 0.11621,
         Part = "LowerTorso",
         Key = "c",
@@ -9,8 +9,8 @@ local settings = {
     },
     Dot = {
         Show = true,
-        Color = Color3.fromRGB(0, 255, 0),
-        Size = Vector3.new(0.9, 2.2, 0.9)
+        Color = Color3.fromRGB(128, 0, 128),
+        Size = Vector3.new(0.9, 1.2, 0.9)
     }
 }
 
@@ -28,33 +28,33 @@ local Part = Instance.new("Part", game.Workspace)
 Part.Anchored = true
 Part.CanCollide = false
 Part.Parent = game.Workspace
-Part.Shape = Enum.PartType.Block
-Part.Size = settings.Dot.Size
-Part.Color = settings.Dot.Color
+Part.Shape = Enum.PartType.Ball
+Part.Size = settings44.Dot.Size
+Part.Color = settings44.Dot.Color
 
-if settings.Dot.Show == true then
+if settings44.Dot.Show == true then
     Part.Transparency = 0
 else
     Part.Transparency = 1
 end
 
 Mouse.KeyDown:Connect(function(KeyPressed)
-    if KeyPressed == (settings.main.Key) then
-        if settings.main.DotEnabled == true then
-            settings.main.DotEnabled = false
-            if settings.main.Notifications == true then
+    if KeyPressed == (settings44.main33.Key) then
+        if settings44.main33.DotEnabled == true then
+            settings44.main33.DotEnabled = false
+            if settings44.main33.Notifications == true then
                 Plr = FindClosestUser()
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "meff.sol hvh",
+                    Title = "Private Script",
                     Text = "No longer locked on"
                 })
             end
         else
             Plr = FindClosestUser()
-            settings.main.DotEnabled = true
-            if settings.main.Notifications == true then
+            settings44.main33.DotEnabled = true
+            if settings44.main33.Notifications == true then
                 game.StarterGui:SetCore("SendNotification", {
-                    Title = "meff.sol hvh",
+                    Title = "Private Script",
                     Text = "Locked on to:" .. tostring(Plr.Character.Humanoid.DisplayName)
                 })
             end
@@ -81,9 +81,9 @@ function FindClosestUser()
 end
 
 RunService.Stepped:connect(function()
-    if settings.main.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
-        Part.CFrame = CFrame.new(Plr.Character[settings.main.Part].Position +
-                                     (Plr.Character.LowerTorso.Velocity * settings.main.Prediction))
+    if settings44.main33.DotEnabled and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
+        Part.CFrame = CFrame.new(Plr.Character[settings44.main33.Part].Position +
+                                     (Plr.Character.LowerTorso.Velocity * settings44.main33.Prediction))
     else
         Part.CFrame = CFrame.new(0, 9999, 0)
 
@@ -95,24 +95,24 @@ local old = mt.__namecall
 setreadonly(mt, false)
 mt.__namecall = newcclosure(function(...)
     local args = {...}
-    if settings.main.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
-        args[3] = Plr.Character[settings.main.Part].Position +
-                      (Plr.Character[settings.main.Part].Velocity * settings.main.Prediction)
+    if settings44.main33.DotEnabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+        args[3] = Plr.Character[settings44.main33.Part].Position +
+                      (Plr.Character[settings44.main33.Part].Velocity * settings44.main33.Prediction)
         return old(unpack(args))
     end
     return old(...)
 end)
 
 
-if settings.main.AirshotFunc == true then
+if settings44.main33.AirshotFunc == true then
     if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
-        settings.main.Part = "RightFoot"
+        settings44.main33.Part = "RightFoot"
     else
         Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
             if new == Enum.HumanoidStateType.Freefall then
-                settings.main.Part = "RightFoot"
+                settings44.main33.Part = "RightFoot"
             else
-                settings.main.Part = "LowerTorso"
+                settings44.main33.Part = "LowerTorso"
             end
         end)
     end
