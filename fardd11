@@ -1,4 +1,4 @@
-local settings442 = {
+getgenv().settings442 = {
     main442 = {
         DotEnabled = true, -- leave this true thusky pooh ;)
         Prediction442 = 0.138,
