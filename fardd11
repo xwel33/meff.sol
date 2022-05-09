@@ -1,14 +1,14 @@
-getgenv().Target = true
+getgenv().Target = false
 
 -- Configuration
 getgenv().Key = Enum.KeyCode.Q
 getgenv().Prediction = 0.178
 getgenv().ChatMode = false
-getgenv().NotifMode = true
+getgenv().NotifMode = false
     getgenv().PartMode = true
     getgenv().AirshotFunccc = false
     getgenv().Partz = "Head"
-getgenv().AutoPrediction = true
+getgenv().AutoPrediction = false
 getgenv().Fov = 100
 getgenv().Circle = true
 --
