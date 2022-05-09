@@ -1,9 +1,9 @@
 local settings = {
     main = {
         DotEnabled = false,
-        Prediction = 0.121192,
+        Prediction = 0,
         Part = "LowerTorso",
-        Key = "c",
+        Key = "",
         Notifications = false,
         AirshotFunc = false
     },
