@@ -1,113 +1,146 @@
---made by https://v3rmillion.net/member.php?action=profile&uid=237565
+wait(0.5); if _G.AutoArrest == false or game.PlaceId ~= 2788229376 then return else repeat wait() until game.Players.LocalPlayer end
 
-local UserInputService = game:GetService("UserInputService")
+wait(15)
+for i, v in next, game.Workspace:GetDescendants() do
+	if v:IsA("Seat") then
+		v:Destroy()
+	end
+end
+local Plr = game.Players.LocalPlayer
 
-local enabled223 = true 
-
-if enabled223 then
-
---\\credits to DreiK and credits to warrior for fixing garbage code \\--
-local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
-local Frame = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-local TextLabel_2 = Instance.new("TextLabel")
-local fps = Instance.new("TextLabel")
-
---Properties:
-
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Frame.BorderColor3 = Color3.fromRGB(86, 86, 86)
-Frame.BorderSizePixel = 1
-Frame.Position = UDim2.new(0.0078125, 0, 0.0138888881, 0)
-Frame.Size = UDim2.new(0, 210+#game.Players.LocalPlayer.Name, 0, 26)
-Frame.Active = true
-
-local gui = Frame
-
-local dragging
-local dragInput
-local dragStart
-local startPos
-
-local function update(input)
-local delta = input.Position - dragStart
-gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+function serverhop()
+    print("PENIS")
+	Plr:Destroy()
+	local x = {}
+	for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+		if type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+	if #x > 0 then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, x[math.random(1, #x)])
+	end
 end
 
-gui.InputBegan:Connect(function(input)
-if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-dragging = true
-dragStart = input.Position
-startPos = gui.Position
-
-input.Changed:Connect(function()
-if input.UserInputState == Enum.UserInputState.End then
-dragging = false
-end
-end)
-end
+spawn(function()
+    wait(300)
+    serverhop()
 end)
 
-gui.InputChanged:Connect(function(input)
-if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-dragInput = input
-end
+game:GetService("RunService").Stepped:connect(function()
+    Plr.Character.Humanoid:ChangeState(11)
 end)
-
-UserInputService.InputChanged:Connect(function(input)
-if input == dragInput and dragging then
-update(input)
-end
+Plr.CharacterAdded:Connect(function(character)
+    repeat wait() until character:FindFirstChild("FULLY_LOADED_CHAR")
+    e(character)
 end)
-
-
-
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
-TextLabel.Size = UDim2.new(0, 45, 0, 26)
-TextLabel.Font = Enum.Font.SourceSansBold
-TextLabel.Text = "Meff"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextSize = 14.000
-
-TextLabel_2.Parent = Frame
-TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_2.BackgroundTransparency = 1.000
-TextLabel_2.Position = UDim2.new(0.142380973, 0, 0, 0)
-TextLabel_2.Size = UDim2.new(0, 25, 0, 26)
-TextLabel_2.Font = Enum.Font.SourceSansBold
-TextLabel_2.Text = ".sol"
-TextLabel_2.TextColor3 = Color3.fromRGB(255, 162, 0)
-TextLabel_2.TextSize = 14.000
-
-fps.Name = "fps"
-fps.Parent = Frame
-fps.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-fps.BackgroundTransparency = 1.000
-fps.Position = UDim2.new(0.574285731, 0, 0, 0)
-fps.Size = UDim2.new(0, 25, 0, 26)
-fps.Font = Enum.Font.SourceSansBold
-fps.Text = "..."
-fps.TextColor3 = Color3.fromRGB(255, 255, 255)
-fps.TextSize = 14.000
-spawn(function()while wait(1)do pcall(function()
-local hour=os.date("*t")["hour"];
-local min=os.date("*t")["min"];
-if hour<10  then hour=string.format("0%s",hour)end;
-if min<10 then min=string.format("0%s",min)end;
-fps.Text=string.format("|  %s fps | %s:%s  |   %s",math.floor(game.Stats.Workspace.Heartbeat:GetValueString()),hour,min,game.Players.LocalPlayer.Name)end)end;end);
-
-function zigzag(X)
-return math.acos(math.cos(X * math.pi)) / math.pi
+function e(character)
+    for i, v in pairs(game.Workspace.Ignored.ItemsDrop:GetChildren()) do
+        if v:FindFirstChild("[Knife]") and Plr.Character:FindFirstChild("[Knife]") == nil and Plr.Backpack:FindFirstChild("[Knife]") == nil then
+            Plr.Character.HumanoidRootPart.CFrame = v.CFrame
+            wait(1)
+        end
+    end
+    for i, v in pairs(character:GetChildren()) do
+        if v:FindFirstChild("LocalScript") then
+            v:Destroy()
+        end
+    end
 end
-
-counter = 0
-
-game:GetService("RunService").RenderStepped:Connect(function()
-TextLabel_2.TextColor3 = Color3.fromHSV(zigzag(counter),1,1)
-Frame.BorderColor3 = Color3.fromHSV(zigzag(counter),1,1)
-counter = counter +  0.001-- change depending on how smooth you want
-end)
+e(Plr.character)
+local target
+while wait() do
+    target = nil
+    local highest = 0
+    for i, v in pairs(game.Players:GetPlayers()) do
+        if v:FindFirstChild("DataFolder") and v.Character:FindFirstChild("FULLY_LOADED_CHAR") and v.Character.BodyEffects:FindFirstChild("Defense") and tonumber(v.DataFolder.Information.Wanted.Value) > 500 and tonumber(v.DataFolder.Information.Wanted.Value) >= highest and v.Character.BodyEffects:FindFirstChild("Armor") then
+            target = v 
+            highest = tonumber(v.DataFolder.Information.Wanted.Value)
+        end
+    end
+    if not target then serverhop() end
+    local e = true
+    local penis = 0
+    local bagged = false
+    local A = false
+    spawn(function() pcall(function()
+        while bagged == false do
+            if target and target.Character and target.Character:FindFirstChild("Christmas_Sock") == nil and penis <= 5 and Plr.Character.Humanoid.Health > 80 then
+                if Plr.Backpack:FindFirstChild("[BrownBag]") == nil then
+                    A = false
+                    pcall(function()
+                        repeat wait()
+                            Plr.character.HumanoidRootPart.CFrame = CFrame.new(-316.034454, 48.2788467, -723.860474, 0.983254969, -0.000297372608, -0.182234928, 0.000218386791, 0.999999881, -0.000453495246, 0.182235047, 0.000406103791, 0.98325491)
+                            fireclickdetector(game:GetService("Workspace").Ignored.Shop["[BrownBag] - $25"].ClickDetector)
+                        until Plr.Backpack:FindFirstChild("[BrownBag]") ~= nil
+                    end)
+                    A = true
+                end
+                Plr.Character.Humanoid:EquipTool(Plr.Backpack["[BrownBag]"])
+                Plr.Character["[BrownBag]"]:Activate()
+                penis = penis + 1
+            elseif penis >= 2 or target.Character:FindFirstChild("Christmas_Sock") or not target then
+                bagged = true
+            end
+            wait(3)
+        end
+    end) end)
+    spawn(function()
+        while e do wait()
+            pcall(function()
+                if Plr.Character.Humanoid.Health > 80 then
+                    if not target.Character.BodyEffects["K.O"].Value then
+                        if A then
+                            Plr.Character.HumanoidRootPart.CFrame = CFrame.new(target.Character.UpperTorso.Position + Vector3.new(0, -5, 0))
+                        end
+                    else
+                        Plr.Character.HumanoidRootPart.CFrame = target.Character.UpperTorso.CFrame
+                    end
+                else
+                    Plr.Character.HumanoidRootPart.CFrame = CFrame.new(0, 999, 0)
+                    if Plr.Character:FindFirstChild("[Chicken]") == nil or Plr.Backpack:FindFirstChild("[Chicken]") == nil then
+                        Plr.Character.HumanoidRootPart.CFrame = game.Workspace.Ignored.Shop["[Chicken] - $7"].Head.CFrame
+                        wait(0.5)
+                        fireclickdetector(game.Workspace.Ignored.Shop["[Chicken] - $7"].ClickDetector)
+                    end
+                    pcall(function()Plr.Character.Humanoid:EquipTool(Plr.Backpack["[Chicken]"])end)
+                    pcall(function()
+                        Plr.Character["[Chicken]"]:Activate()
+                        wait(0.1)
+                        Plr.Character["[Chicken]"]:Deactivate()
+                    end)
+                end
+            end)
+        end
+    end)
+    repeat wait() until bagged
+    pcall(function()
+        repeat wait()
+            repeat wait()
+                pcall(function()
+                if Plr.Character.Humanoid.Health > 80 then
+                    pcall(function()Plr.Character.Humanoid:EquipTool(Plr.Backpack["[Knife]"])end)
+                    wait(0.1)
+                        Plr.Character["[Knife]"].GripPos = Vector3.new(0, 5, 0)
+                        Plr.Character["[Knife]"].Handle.Size = Vector3.new(20, 20, 20)
+                        Plr.Character["[Knife]"]:Activate()
+                        wait(2)
+                        Plr.Character["[Knife]"]:Deactivate()
+                        wait(1)
+                    end
+                end)
+            until not target or target.Character.BodyEffects["K.O"].Value or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.V)
+            repeat wait() 
+                if Plr.Character.Humanoid.Health > 80 then
+                    pcall(function()Plr.Character.Humanoid:EquipTool(Plr.Backpack.Cuff)end)
+                    pcall(function()
+                        Plr.Character.Cuff:Activate()
+                        wait(0.1)
+                        Plr.Character.Cuff:Deactivate()
+                    end)
+                end
+            until not target.Character.BodyEffects["K.O"].Value or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.V)
+        until tonumber(target.DataFolder.Information.Wanted.Value) == 0 or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.V)
+    end)
+    e = false
 end
