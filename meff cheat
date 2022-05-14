@@ -1,2 +1,2 @@
-getgenv().key = ""
-loadstring(game:HttpGet("https://meff.000webhostapp.com/yoooo2132131/afafsdafsdfsda", true))()
+getgenv().key = "" -- <-your key here
+loadstring(game:HttpGet("https://btsmchickenmeal911speds.000webhostapp.com/meff/script", true))()
